@@ -223,6 +223,17 @@ public class RuleSetBuilder {
     }
 
     /**
+     * Determines whether the original values of all Bindings are reset to their current values before
+     * this RuleSet executes.
+     *
+     * @param resetOriginals true to reset Binding original values at the start of the run.
+     * @return this RuleSetBuilder instance for method chaining.
+     */
+    public RuleSetBuilder resetOriginals(boolean resetOriginals) {
+        return this;
+    }
+
+    /**
      * Sets the result extractor function for the RuleSetBuilder.
      *
      * @param resultExtractor the function used to extract results

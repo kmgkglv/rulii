@@ -122,6 +122,35 @@ public interface Binding<T> extends Identifiable, Immutator<Binding<T>> {
 	void setValue(T value) throws InvalidBindingException;
 
 	/**
+	 * Returns the original value of this Binding prior to any mutation via {@link #setValue(Object)}.
+	 * If the value has never been set explicitly (or after {@link #resetOriginal()}), this returns
+	 * the current value (i.e. the original equals {@link #getValue()}).
+	 *
+	 * @return the original (pre-mutation) value.
+	 */
+	default T getOriginalValue() {
+		return getValue();
+	}
+
+	/**
+	 * Determines whether this Binding's value has been modified via {@link #setValue(Object)} since
+	 * creation or since the last {@link #resetOriginal()}.
+	 *
+	 * @return true if the value has been modified; false otherwise.
+	 */
+	default boolean isModified() {
+		return false;
+	}
+
+	/**
+	 * Resets the original value to the current value, so subsequent {@link #getOriginalValue()} calls
+	 * reflect the current value and {@link #isModified()} reports false until the next mutation.
+	 */
+	default void resetOriginal() {
+		// No-op by default; implementations that track original values override this.
+	}
+
+	/**
 	 * Determines whether the Binding can be assigned to the desired Type.
 	 * 
 	 * @param type input type.
